@@ -15,19 +15,19 @@
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="2"/>
           <property name="color1" type="array">
-            <value type="uint" value="61937"/>
-            <value type="uint" value="61937"/>
-            <value type="uint" value="61937"/>
+            <value type="uint" value="62194"/>
+            <value type="uint" value="63682"/>
+            <value type="uint" value="63993"/>
             <value type="uint" value="65535"/>
           </property>
           <property name="color2" type="array">
-            <value type="uint" value="53263"/>
-            <value type="uint" value="54393"/>
-            <value type="uint" value="54648"/>
+            <value type="uint" value="52942"/>
+            <value type="uint" value="54227"/>
+            <value type="uint" value="56540"/>
             <value type="uint" value="65535"/>
           </property>
           <property name="image-style" type="int" value="0"/>
-          <property name="last-image" type="string" value="/usr/share/images/desktop-base/default"/>
+          <property name="last-image" type="string" value="/home/arwn/Pictures/wallhaven-0pgexm.png"/>
           <property name="backdrop-cycle-enable" type="bool" value="false"/>
         </property>
         <property name="workspace1" type="empty">
@@ -95,7 +95,7 @@
     </property>
   </property>
   <property name="desktop-icons" type="empty">
-    <property name="show-thumbnails" type="bool" value="true"/>
+    <property name="show-thumbnails" type="bool" value="false"/>
     <property name="file-icons" type="empty">
       <property name="show-home" type="bool" value="true"/>
     </property>
