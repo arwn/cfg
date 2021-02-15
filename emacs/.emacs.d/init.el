@@ -74,16 +74,14 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (delete-selection-mode t)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
+ '(package-selected-packages
    (quote
-    ("d2db4af7153c5d44cb7a67318891e2692b8bf5ddd70f47ee7a1b2d03ad25fcd9" default)))
- '(package-selected-packages (quote (modus-themes leuven-theme go-mode use-package))))
+    (rainbow-delimiters modus-themes go-mode which-key company flycheck magit counsel ivy use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
