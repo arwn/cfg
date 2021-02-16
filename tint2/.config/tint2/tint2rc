@@ -18,6 +18,12 @@ border_color = #333333 100
 # 3: unselected
 rounded = 0
 border_width = 1
+background_color = #ffffff 0
+border_color = #333333 100
+
+# 4: tray
+rounded = 0
+border_width = 0
 background_color = #ffffff 100
 border_color = #333333 100
 
@@ -45,3 +51,9 @@ time1_format = %H:%M
 time1_font = Go Mono 10
 clock_font_color = #333 100
 clock_padding = 2
+
+systray_padding = 10 2 10
+systray_sort = ascending
+systray_background_id = 4
+systray_icon_size = 0
+systray_icon_asb = 100 -100 0
