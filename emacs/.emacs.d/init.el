@@ -68,7 +68,7 @@
 
 (global-hl-line-mode 1)
 (show-paren-mode t)
-(set-frame-font "Go Mono" nil t)
+(set-frame-font "IBM Plex Mono" nil t)
 
 ;;; misc
 
