@@ -1,6 +1,7 @@
 ;;; i don't understand any of this crap
 
 (require 'package)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ; fix v26.1 bug..
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
@@ -68,7 +69,7 @@
 
 (global-hl-line-mode 1)
 (show-paren-mode t)
-(set-frame-font "IBM Plex Mono" nil t)
+(set-frame-font "Go Mono 12" nil t)
 
 ;;; misc
 
@@ -87,7 +88,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (zig-mode raku-mode lua-mode sly rainbow-delimiters modus-themes go-mode which-key company flycheck magit counsel ivy use-package))))
+    (lsp-java lsp-mode zig-mode raku-mode lua-mode sly rainbow-delimiters modus-themes go-mode which-key company flycheck magit counsel ivy use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
