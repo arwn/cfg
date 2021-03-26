@@ -12,6 +12,11 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 (use-package ivy
   :diminish ivy-mode
   :config
@@ -41,10 +46,22 @@
   (which-key-mode))
 
 ;;; language specific configs
+(use-package lsp-mode)
+(use-package lsp-ui)
+(use-package company-lsp)
+
+(use-package ada-mode
+  :config
+  (add-hook 'ada-mode 'lsp-mode))
+ 
 (use-package go-mode
   :config
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  (setq gofmt-command "~/go/bin/goimports")
+  (add-hook 'go-mode-hook #'lsp-deferred)
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
 (use-package sly
   :config
@@ -67,6 +84,10 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+(use-package emojify
+  :config
+  (add-hook 'rirc-mode-hook #'emojify-mode))
+
 (global-hl-line-mode 1)
 (show-paren-mode t)
 (set-frame-font "Go Mono 12" nil t)
@@ -80,7 +101,7 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (delete-selection-mode t)
-
+(setf inhibit-startup-screen t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -88,7 +109,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lsp-java lsp-mode zig-mode raku-mode lua-mode sly rainbow-delimiters modus-themes go-mode which-key company flycheck magit counsel ivy use-package))))
+    (ada emojify rainbow-delimiters modus-themes lua-mode sly go-mode company-lsp lsp-ui lsp-mode which-key company flycheck magit counsel ivy exec-path-from-shell use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
