@@ -48,7 +48,6 @@
 ;;; language specific configs
 (use-package lsp-mode)
 (use-package lsp-ui)
-(use-package company-lsp)
 
 (use-package ada-mode
   :config
