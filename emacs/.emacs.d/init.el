@@ -52,7 +52,10 @@
 (use-package ada-mode
   :config
   (add-hook 'ada-mode 'lsp-mode))
- 
+
+(use-package clojure-mode)
+(use-package cider)
+
 (use-package go-mode
   :config
   (setq gofmt-command "~/go/bin/goimports")
@@ -108,7 +111,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ada emojify rainbow-delimiters modus-themes lua-mode sly go-mode company-lsp lsp-ui lsp-mode which-key company flycheck magit counsel ivy exec-path-from-shell use-package))))
+    (cider clojure-mode ada-ls ada emojify rainbow-delimiters modus-themes lua-mode sly go-mode company-lsp lsp-ui lsp-mode which-key company flycheck magit counsel ivy exec-path-from-shell use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
