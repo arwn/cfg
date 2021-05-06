@@ -1,7 +1,6 @@
-;;; i don't understand any of this crap
+;; i don't understand any of this crap
 
 (require 'package)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ; fix v26.1 bug..
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
@@ -49,13 +48,6 @@
 (use-package lsp-mode)
 (use-package lsp-ui)
 
-(use-package ada-mode
-  :config
-  (add-hook 'ada-mode 'lsp-mode))
-
-(use-package clojure-mode)
-(use-package cider)
-
 (use-package go-mode
   :config
   (setq gofmt-command "~/go/bin/goimports")
@@ -65,9 +57,21 @@
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
+(use-package ruby-mode
+  :config
+  (add-hook 'ruby-mode-hook 'lsp-deferred))
+
+(use-package yaml-mode)
+
 (use-package sly
   :config
-  (setq inferior-lisp-program "/usr/bin/sbcl"))
+  (cond ((string-equal system-type "gnu/linux")
+	 (setq inferior-lisp-program "/usr/bin/sbcl"))
+	((string-equal system-type "windows-nt")
+	 (progn
+	   (setq sly-lisp-implementations '((sbcl ("C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe" "--core" "C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.core"))))
+	   (setq inferior-lisp-program "c:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe")))
+	(t "unknown os")))
 
 (use-package lua-mode)
 
@@ -86,10 +90,6 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-(use-package emojify
-  :config
-  (add-hook 'rirc-mode-hook #'emojify-mode))
-
 (global-hl-line-mode 1)
 (show-paren-mode t)
 (set-frame-font "Go Mono 12" nil t)
@@ -104,17 +104,4 @@
 (scroll-bar-mode 0)
 (delete-selection-mode t)
 (setf inhibit-startup-screen t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (cider clojure-mode ada-ls ada emojify rainbow-delimiters modus-themes lua-mode sly go-mode company-lsp lsp-ui lsp-mode which-key company flycheck magit counsel ivy exec-path-from-shell use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(add-hook 'before-save-hook 'whitespace-cleanup)
