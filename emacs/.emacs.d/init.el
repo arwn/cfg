@@ -48,6 +48,22 @@
 (use-package lsp-mode)
 (use-package lsp-ui)
 
+(use-package julia-mode)
+(use-package lsp-julia)
+
+(use-package zig-mode)
+
+(use-package haskell-mode)
+(use-package lsp-haskell
+  :config (add-hook 'haskell-mode #'lsp-mode))
+
+(use-package lua-mode)
+
+(use-package elixir-mode)
+
+(use-package php-mode)
+(use-package company-php)
+
 (use-package go-mode
   :config
   (setq gofmt-command "~/go/bin/goimports")
@@ -63,6 +79,8 @@
 
 (use-package yaml-mode)
 
+(use-package cider)
+
 (use-package sly
   :config
   (cond ((string-equal system-type "gnu/linux")
@@ -72,6 +90,10 @@
 	   (setq sly-lisp-implementations '((sbcl ("C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe" "--core" "C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.core"))))
 	   (setq inferior-lisp-program "c:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe")))
 	(t "unknown os")))
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (add-hook 'prog-mode-hook #'smartparens-mode))
 
 (use-package lua-mode)
 
@@ -92,16 +114,31 @@
 
 (global-hl-line-mode 1)
 (show-paren-mode t)
-(set-frame-font "Go Mono 12" nil t)
+(set-frame-font "Bitstream Terminal 14" nil t)
 
 ;;; misc
 
+(setq eshell-banner-message "")
 (setq-default frame-title-format '("%b"))
 (setq make-backup-files nil)
 (global-hl-line-mode t)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(delete-selection-mode t)
+(delete-selection-mode 1)
 (setf inhibit-startup-screen t)
 (add-hook 'before-save-hook 'whitespace-cleanup)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(delete-selection-mode nil)
+ '(package-selected-packages
+   '(lsp-lua elixir-mode lsp-julia julia-mode company-php company-erlang erlang-mode cider zig-mode php-mode lsp-haskell haskell-mode smartparens yaml-mode which-key use-package sly rainbow-delimiters modus-themes magit lua-mode lsp-ui go-mode flycheck exec-path-from-shell counsel company)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
