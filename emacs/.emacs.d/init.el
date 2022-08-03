@@ -1,5 +1,3 @@
-;; i don't understand any of this crap
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -14,6 +12,7 @@
 (use-package exec-path-from-shell
   :config
   (when (memq window-system '(mac ns x))
+    (setenv "SHELL" "/opt/homebrew/bin/fish")
     (exec-path-from-shell-initialize)))
 
 (use-package ivy
@@ -45,66 +44,15 @@
   (which-key-mode))
 
 ;;; language specific configs
-(use-package lsp-mode)
-(use-package lsp-ui)
-
-(use-package julia-mode)
-(use-package lsp-julia)
-
-(use-package zig-mode)
-
-(use-package haskell-mode)
-(use-package lsp-haskell
-  :config (add-hook 'haskell-mode #'lsp-mode))
-
-(use-package lua-mode)
-
-(use-package elixir-mode)
-
-(use-package php-mode)
-(use-package company-php)
-
-(use-package go-mode
-  :config
-  (setq gofmt-command "~/go/bin/goimports")
-  (add-hook 'go-mode-hook #'lsp-deferred)
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
-
-(use-package ruby-mode
-  :config
-  (add-hook 'ruby-mode-hook 'lsp-deferred))
-
-(use-package yaml-mode)
-
-(use-package cider)
-
-(use-package sly
-  :config
-  (cond ((string-equal system-type "gnu/linux")
-	 (setq inferior-lisp-program "/usr/bin/sbcl"))
-	((string-equal system-type "windows-nt")
-	 (progn
-	   (setq sly-lisp-implementations '((sbcl ("C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe" "--core" "C:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.core"))))
-	   (setq inferior-lisp-program "c:/Program Files/Steel Bank Common Lisp/2.0.0/sbcl.exe")))
-	(t "unknown os")))
-(use-package smartparens
-  :config
-  (require 'smartparens-config)
-  (add-hook 'prog-mode-hook #'smartparens-mode))
-
-(use-package lua-mode)
 
 ;;; face customizations
 (use-package modus-themes
   :config
-  (setq modus-themes-intense-hl-line t
-	modus-themes-mode-line 'borderless
-	modus-themes-syntax 'yellow-comments-green-strings
-	modus-themes-links 'neutral-underline)
-  (modus-themes-load-operandi)
+  (setq modus-themes-hl-line '(intense)
+       	modus-themes-mode-line '(borderless)
+	modus-themes-syntax '(yellow-comments-green-strings)
+	modus-themes-links '(neutral-underline))
+  (load-theme 'modus-operandi t)
   :bind
   ("<f5>" . #'modus-themes-toggle))
 
@@ -114,7 +62,7 @@
 
 (global-hl-line-mode 1)
 (show-paren-mode t)
-(set-frame-font "Bitstream Terminal 14" nil t)
+(set-frame-font "IBM Plex Mono 14" nil t)
 
 ;;; misc
 
@@ -127,15 +75,16 @@
 (scroll-bar-mode 0)
 (delete-selection-mode 1)
 (setf inhibit-startup-screen t)
-(add-hook 'before-save-hook 'whitespace-cleanup)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
+ '(custom-safe-themes
+   '("4cc1cc7efd5c2362ef684657eec7d7e482223b1def4edeb0fab52ba1d334d38a" default))
  '(package-selected-packages
-   '(lsp-lua elixir-mode lsp-julia julia-mode company-php company-erlang erlang-mode cider zig-mode php-mode lsp-haskell haskell-mode smartparens yaml-mode which-key use-package sly rainbow-delimiters modus-themes magit lua-mode lsp-ui go-mode flycheck exec-path-from-shell counsel company)))
+   '(flycheck company magit rainbow-delimiters modus-themes which-key counsel ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
