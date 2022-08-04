@@ -15,6 +15,9 @@
     (setenv "SHELL" "/opt/homebrew/bin/fish")
     (exec-path-from-shell-initialize)))
 
+(use-package evil
+  :config (evil-mode 1))
+
 (use-package ivy
   :diminish ivy-mode
   :config
@@ -43,7 +46,15 @@
   :config
   (which-key-mode))
 
+(use-package projectile
+  :config
+  (projectile-mode +1)
+  (setq projectile-project-search-path '("~/projects"))
+  :bind ("s-p" . #'projectile-command-map))
+
 ;;; language specific configs
+
+(use-package cider)
 
 ;;; face customizations
 (use-package modus-themes
@@ -84,7 +95,7 @@
  '(custom-safe-themes
    '("4cc1cc7efd5c2362ef684657eec7d7e482223b1def4edeb0fab52ba1d334d38a" default))
  '(package-selected-packages
-   '(flycheck company magit rainbow-delimiters modus-themes which-key counsel ivy use-package)))
+   '(projectile evil flycheck company magit rainbow-delimiters modus-themes which-key counsel ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
