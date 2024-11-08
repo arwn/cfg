@@ -1,3 +1,5 @@
+*tree-sitter/
+*elpaca/
 *auto-save-list/
 *.cache
 *.dap-breakpoints

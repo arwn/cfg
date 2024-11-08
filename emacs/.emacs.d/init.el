@@ -1,104 +1,64 @@
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; Commentary:
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; This file bootstraps the configuration, which is divided into
+;; a number of other files.
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+;;; Code:
 
-(use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns x))
-    (setenv "SHELL" "/opt/homebrew/bin/fish")
-    (exec-path-from-shell-initialize)))
+;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
+(setq debug-on-error t)
 
-(use-package evil
-  :config (evil-mode 1))
+(let ((minver "27.1"))
+  (when (version< emacs-version minver)
+    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
+(when (version< emacs-version "28.1")
+  (message "Your Emacs is old."))
 
-(use-package ivy
-  :diminish ivy-mode
-  :config
-  (ivy-mode))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;;(require 'init-benchmarking) ;; Measure startup time
 
-(use-package counsel
-  :diminish counsel-mode
-  :config
-  (counsel-mode))
+(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
+(defconst *is-a-mac* (eq system-type 'darwin))
 
-(use-package swiper
-  :config
-  (global-set-key "\C-s" 'swiper))
 
-(use-package magit)
+;; Adjust garbage collection threshold for early startup (see use of gcmh below)
+(setq gc-cons-threshold (* 128 1024 1024))
 
-(use-package flycheck
-  :config
-  (global-flycheck-mode))
 
-(use-package company
-  :config
-  (global-company-mode))
+;; Process performance tuning
 
-(use-package which-key
-  :config
-  (which-key-mode))
+(setq read-process-output-max (* 4 1024 1024))
+(setq process-adaptive-read-buffering nil)
 
-(use-package projectile
-  :config
-  (projectile-mode +1)
-  (setq projectile-project-search-path '("~/projects"))
-  :bind ("s-p" . #'projectile-command-map))
 
-;;; language specific configs
+;; Bootstrap config
 
-(use-package cider)
+(require 'init-elpaca)
+(use-package diminish :ensure t)
 
-;;; face customizations
-(use-package modus-themes
-  :config
-  (setq modus-themes-hl-line '(intense)
-       	modus-themes-mode-line '(borderless)
-	modus-themes-syntax '(yellow-comments-green-strings)
-	modus-themes-links '(neutral-underline))
-  (load-theme 'modus-operandi t)
-  :bind
-  ("<f5>" . #'modus-themes-toggle))
+;; General performance tuning
 
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+(use-package gcmh :ensure t
+  :init
+  (setq gcmh-high-cons-threshold (* 128 1024 1024))
+  :hook (after-init . (lambda () (gcmh-mode) (diminish gcmh-mode))))
 
-(global-hl-line-mode 1)
-(show-paren-mode t)
-(set-frame-font "IBM Plex Mono 14" nil t)
+(setq jit-lock-defer-time 0)
 
-;;; misc
 
-(setq eshell-banner-message "")
-(setq-default frame-title-format '("%b"))
-(setq make-backup-files nil)
-(global-hl-line-mode t)
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(delete-selection-mode 1)
-(setf inhibit-startup-screen t)
+(require 'init-editing-utils)
+(require 'init-theme)
+(require 'init-gui)
+(require 'init-term)
+(require 'init-corfu) ; completions
+(require 'init-os)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("4cc1cc7efd5c2362ef684657eec7d7e482223b1def4edeb0fab52ba1d334d38a" default))
- '(package-selected-packages
-   '(projectile evil flycheck company magit rainbow-delimiters modus-themes which-key counsel ivy use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Langauages
+(require 'init-treesit)
+(require 'init-javascript)
+
+
+(provide 'init)
+
+;;; init.el ends here
