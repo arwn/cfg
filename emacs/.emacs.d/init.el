@@ -46,7 +46,7 @@
 
 (setq jit-lock-defer-time 0)
 
-
+;; Require all the submodules
 (require 'init-editing-utils)
 (require 'init-theme)
 (require 'init-gui)
