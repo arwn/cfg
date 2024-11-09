@@ -2,10 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq light-theme 'tango)
-(setq dark-theme 'tango-dark)
+(defvar light-theme 'modus-operandi)
+(defvar dark-theme 'modus-vivendi-tinted)
+(use-package modus-themes :ensure t)
 
 (setq custom-safe-themes t)
+
 
 ;; Sync theme with dark/light mode
 (defun my/apply-theme (appearance)
