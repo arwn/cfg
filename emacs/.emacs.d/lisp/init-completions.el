@@ -18,7 +18,8 @@
 
 (use-package emacs
   :custom
-  (tab-always-indent 'complete))
+  (tab-always-indent 'complete)
+  (enable-recursive-minibuffers t))
 
 (provide 'init-completions)
 
