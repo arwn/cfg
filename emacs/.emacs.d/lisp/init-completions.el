@@ -16,6 +16,10 @@
   :init
   (vertico-mode))
 
+(use-package marginalia :ensure t
+  :init
+  (marginalia-mode t))
+
 (use-package emacs
   :custom
   (tab-always-indent 'complete)
