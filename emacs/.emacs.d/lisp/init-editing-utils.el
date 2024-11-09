@@ -6,7 +6,10 @@
 (setq-default
  make-backup-files nil
  create-lockfiles nil
- delete-selection-mode 1)
+ delete-selection-mode 1
+ display-line-numbers-type 'relative)
+
+(global-display-line-numbers-mode 1)
 
 (setq use-short-answers t)
 
