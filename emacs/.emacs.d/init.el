@@ -51,7 +51,7 @@
 (require 'init-theme)
 (require 'init-gui)
 (require 'init-term)
-(require 'init-corfu) ; completions
+(require 'init-completions)
 (require 'init-os)
 
 ;; Langauages
